@@ -1,0 +1,18 @@
+<package>
+  <description brief="Node for the 3Dconnexion SpaceNavigator for Ardrone">
+    A node for publishing the state of the 3Dconnexion SpaceNavigator 6DOF joystick.
+  </description>
+  <author>Stuart Glaser, Blaise Gassend, modified by Jan Heuer for ardrone</author>
+  <license>BSD</license>
+  <review status="Doc reviewed" notes="reviewed 10-1-2009"/>
+  <depend package="roscpp" />
+  <depend package="spacenav" />
+  <depend package="joy" />
+  <depend package="geometry_msgs" />
+  <url>http://ros.org/wiki/3d_ardrone_teleop</url>
+  <export>
+  </export>
+  <platform os="ubuntu" version="9.04"/>
+  <platform os="ubuntu" version="9.10"/>
+  <platform os="ubuntu" version="10.04"/>
+</package>

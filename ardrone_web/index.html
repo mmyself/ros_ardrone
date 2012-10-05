@@ -1,0 +1,163 @@
+    <html>
+      <head>
+        <link rel="stylesheet" type="text/css" href="css/main.css" media="all" />
+        <script type="text/javascript" src="js/jquery-latest.js"></script>
+        <script type="text/javascript" src="js/ros.min.js"></script>
+        <script type="text/javascript">
+    function main() {
+      var x = 0;
+      var y = 0;
+      var z = 0;
+      var az = 0;
+      
+      var connection = new ros.Connection("ws://localhost:9090");
+      
+      connection.setOnClose(function (e) {
+        $('#connectionState').append('connection closed<br/>');
+      });
+      
+      connection.setOnError(function (e) {
+        $('#connectionState').append('<p>connection error!<br/></p>');
+      });
+      
+      connection.setOnOpen(function (e) {
+        $('#connectionState').append('<p>connected to ROS<p/>');
+        
+        function pubTwist() {
+          connection.publish('/cmd_vel', 'geometry_msgs/Twist', '{"linear":{"x":' + x + ',"y":' + y + ',"z":' + z + '}, "angular":{"x":0,"y":0,"z":' + az + '}}');
+        }
+        
+        function pubStart(){
+          connection.publish('/ardrone/takeoff', 'std_msgs/Empty', '{}');
+        }
+        
+        function pubLand(){
+          connection.publish('/ardrone/land', 'std_msgs/Empty', '{}');
+        }
+        
+        function pubReset(){
+          connection.publish('/ardrone/reset', 'std_msgs/Empty', '{}');
+        }
+        
+        function handleKey(code, down) {
+          var scale = 0;
+          var actionstr = '';
+          
+          if (down == true) {
+          
+          scale = 0.1;
+          
+          //alert(code);
+          switch (code) {
+            case 37:
+        	actionstr = 'left';
+        	y = 1 * scale;
+        	break;
+            case 38:
+        	actionstr = 'forward';
+        	x = 1 * scale;
+        	break;
+            case 39:
+    		actionstr = 'right';
+        	y = -1 * scale;
+        	break;
+            case 40:
+        	actionstr = 'backward';
+        	x = -1 * scale;
+        	break;
+    	    case 87:
+    		actionstr = 'up';
+    		z = 1 * scale;
+    		break;
+    	    case 83:
+    		actionstr = 'down';
+    		z = 1;
+    		break;
+    	    case 65:
+    		actionstr = 'turn left';
+    		az = 1;
+    		break;
+    	    case 68:
+    		actionstr = 'turn right';
+    		az = -1;
+    		break;
+    	    case 84:
+    		actionstr = 'takeoff';
+    		pubStart();
+    		break;
+    	    case 76:
+    		actionstr = 'landing';
+    		pubLand();
+    		break;
+    	    case 82:
+    		actionstr = 'reset';
+    		pubReset();
+    		break;
+    	    default:
+    		actionstr = 'clear all';
+    		x = 0;
+    		y = 0;
+    		z = 0;
+    		az = 0;
+    		break;
+          }
+          
+          
+          $('#keys').empty();
+          $('#keys').append(actionstr);
+          pubTwist();
+          
+          }
+        }
+        
+        document.addEventListener('keydown', function (e) {
+          handleKey(e.keyCode, true);
+        }, true);
+        
+        document.addEventListener('keyup', function (e) {
+          handleKey(e.keyCode, false);
+        }, true);
+      
+        img=document.getElementById('VIDEO_CANVAS_0');
+        img.src='http://localhost:8080/stream?topic=/ardrone/image_raw';
+      
+      });
+      
+      
+    }
+        </script>
+      </head>
+    <body onload="main()">
+	<div id="title"><h1>Webtool for Parrot's ARDrone</h1></div>
+	
+	<div id="left">
+	<h2>Connection State</h2>
+	<div id="connectionState"></div>
+	<div>
+	    <h2>State</h2>
+	    <h3 id="keys" style="color:green;">hit t for takeoff</h3>
+	    <h2>Keys</h2>                                               
+	    <p>!!! Careful, function not integrated, TODO !!!<br />
+		Reading from the keyboard  and Publishing to Twist!<br />
+		---------------------------<br />
+		up/down:       move forward/backward<br />
+		left/right:    move left/right<br />
+		w/s:           increase/decrease altitude<br />
+		a/d:           turn left/right<br />
+		t/l:           takeoff/land<br />
+		r:             reset (toggle emergency state)<br />
+		anything else: stop<br />
+		
+		please don't have caps lock on.<br />
+	</div>
+	</div>
+	
+	
+	<div id="content">
+	<div id="image1"><h2>Image Raw</h2><p>todo is a Selector for all running image topics</p><img id="VIDEO_CANVAS_0" width="640" height="480" /></div>
+	
+	<!--<div id="image2"><h2>Image AR Recognition</h2><img src="http://localhost:8080/stream?topic=/ar/image" /></div>-->
+	</div>
+	
+    </body>
+    </html>

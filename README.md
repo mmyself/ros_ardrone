@@ -6,5 +6,5 @@
 
 ## Goal
 
-In this package i will try to collect all ardrone ros things i can find and also develop some basics for the ardrone. I hope there will be some people out there, who will use and/or develop further things to this package. So feel free to contact me.
+In this package i will try to collect all ardrone ros things i can find and also develop some basics for the ardrone. I hope there will be some people out there, who will use it and/or develop further things to this package. So feel free to contact me.
 

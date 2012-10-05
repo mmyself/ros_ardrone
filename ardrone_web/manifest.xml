@@ -1,0 +1,15 @@
+<package>
+  <description brief="jh_ardrone_web">
+
+     jh_ardrone_web
+
+  </description>
+  <author>Jan</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/jh_ardrone_web</url>
+  <depend package="rosbridge"/>
+
+</package>
+
+
