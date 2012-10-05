@@ -1,0 +1,17 @@
+<package>
+  <description brief="odom_to_world">
+
+     odom_to_world
+
+  </description>
+  <author>Jan</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/odom_to_world</url>
+	<depend package="roscpp"/>
+    <depend package="tf"/>
+	<depend package="nav_msgs"/>
+
+</package>
+
+

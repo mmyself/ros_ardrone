@@ -1,0 +1,80 @@
+Background\ ColorR=0
+Background\ ColorG=0
+Background\ ColorB=0
+Fixed\ Frame=/world
+Target\ Frame=<Fixed Frame>
+Camera.Enabled=1
+Camera.Image\ Rendering=background & overlay
+Camera.Image\ Topic=/ardrone/image_raw
+Camera.Overlay\ Alpha=0,5
+Camera.Transport\ Hint=raw
+Camera.Zoom\ Factor=1
+Grid.Alpha=0,5
+Grid.Cell\ Size=1
+Grid.ColorR=0,5
+Grid.ColorG=0
+Grid.ColorB=0
+Grid.Enabled=1
+Grid.Line\ Style=0
+Grid.Line\ Width=0,03
+Grid.Normal\ Cell\ Count=0
+Grid.OffsetX=0
+Grid.OffsetY=0
+Grid.OffsetZ=0
+Grid.Plane=0
+Grid.Plane\ Cell\ Count=10
+Grid.Reference\ Frame=<Fixed Frame>
+Markers.Enabled=1
+Markers.Marker\ Topic=visualization_marker
+Robot\ Model.Alpha=1
+Robot\ Model.Collision\ Enabled=0
+Robot\ Model.Enabled=1
+Robot\ Model.Robot\ Description=robot_description
+Robot\ Model.TF\ Prefix=
+Robot\ Model.Update\ Interval=0
+Robot\ Model.Visual\ Enabled=1
+TF.All\ Enabled=0
+TF.Enabled=1
+TF.Frame\ Timeout=15
+TF.Marker\ Scale=1
+TF.Show\ Arrows=1
+TF.Show\ Axes=1
+TF.Show\ Names=1
+TF.Update\ Interval=0
+Tool\ 2D\ Nav\ GoalTopic=goal
+Tool\ 2D\ Pose\ EstimateTopic=initialpose
+Camera\ Type=rviz::OrbitViewController
+Camera\ Config=1.271 1.6261 7.36547 0 0 0
+Property\ Grid\ State=selection=TF./base_frontcamEnabled;expanded=.Global Options,TF.Enabled,TF.Enabled.TF.StatusTopStatus,TF.Enabled.TF.Frames,TF./BL/BL,TF./BR/BR,TF./FL/FL,TF./FR/FR,TF./base_bottomcam/base_bottomcam,TF./base_footprint/base_footprint,TF./base_frontcam/base_frontcam,TF./base_link/base_link,TF./base_stabilized/base_stabilized,TF./world/world,TF./world_marker/world_marker,TF.Enabled.TF.Tree,TF./worldTree/world,TF./world_markerTree/world_marker,TF./base_footprintTree/base_footprint,TF./base_stabilizedTree/base_stabilized,TF./base_linkTree/base_link,TF./BLTree/BL,TF./BRTree/BR,TF./FLTree/FL,TF./FRTree/FR,TF./base_bottomcamTree/base_bottomcam,TF./base_frontcamTree/base_frontcam,Markers.Enabled.Markers.Namespaces,Robot Model.Enabled;scrollpos=0,0;splitterpos=228,457;ispageselected=1
+[Display0]
+Name=TF
+Package=rviz
+ClassName=rviz::TFDisplay
+[Display1]
+Name=Markers
+Package=rviz
+ClassName=rviz::MarkerDisplay
+[Display2]
+Name=Grid
+Package=rviz
+ClassName=rviz::GridDisplay
+[Display3]
+Name=Camera
+Package=rviz
+ClassName=rviz::CameraDisplay
+[Display4]
+Name=Robot Model
+Package=rviz
+ClassName=rviz::RobotModelDisplay
+[TF.]
+BLEnabled=0
+BREnabled=0
+FLEnabled=0
+FREnabled=0
+base_bottomcamEnabled=0
+base_footprintEnabled=0
+base_frontcamEnabled=0
+base_linkEnabled=1
+base_stabilizedEnabled=0
+worldEnabled=1
+world_markerEnabled=0

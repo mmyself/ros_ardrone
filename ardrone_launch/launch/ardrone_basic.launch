@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<launch>
+
+
+
+		<!-- Start the ARDrone driver-->
+	<node pkg="ardrone_autonomy" type="ardrone_driver" name="ardrone" output="screen">
+		<param name="drone_frame_id" value="base"/>
+		<param name="outdoor" value="0"/>
+		<param name="flight_without_shell" value="0"/>
+		<param name="altitude_max" value="3000"/>
+		<param name="detect_type" value="CAD_TYPE_MULTIPLE_DETECTION_MODE"/>
+		<param name="enemy_colors" value="ARDRONE_DETECTION_COLOR_ORANGE_BLUE"/>
+		<param name="enemy_without_shell" value="0"/>
+		<param name="detections_select_h" value="TAG_TYPE_MASK(TAG_TYPE_SHELL_TAG_V2)"/>
+		<param name="detections_select_v_hsync" value="TAG_TYPE_MASK(TAG_TYPE_BLACK_ROUNDEL)"/>
+	</node>
+
+
+
+	 	<!-- Show the image -->
+	<node name="image_view" pkg="image_view" type="image_view" respawn="false" output="screen" cwd="node">
+		<remap from="image" to="/ardrone/image_raw"/>
+    	</node>        
+	
+        
+       		<!-- Start the 3d Mouse for driving control -->
+    	<node name="teleop_3d" pkg="drone_teleop_3d" type="ardrone_3d_teleop" />          
+
+
+    
+</launch>
