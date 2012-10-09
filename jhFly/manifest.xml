@@ -1,0 +1,14 @@
+<package>
+  <description brief="jhFly">
+
+     jhFly
+
+  </description>
+  <author>gosign</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/jhFly</url>
+
+</package>
+
+
