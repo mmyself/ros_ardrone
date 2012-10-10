@@ -12,9 +12,9 @@ def odomCallback(odom_msg):
 	twist.linear.x = 0; twist.linear.y = 0; twist.linear.z = 0
 	twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = 0
 	
-	print msg.pose.pose
+	print odom_msg.pose.pose
 
-	if(msg.pose.z < 0.9):
+	if(odom_msg.pose.pose.position.z < 0.9):
 		twist.linear.z = 1		
 	
 	pub.publish(twist)

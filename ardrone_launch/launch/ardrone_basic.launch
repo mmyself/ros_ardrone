@@ -3,7 +3,6 @@
 <launch>
 
 
-
 		<!-- Start the ARDrone driver-->
 	<node pkg="ardrone_autonomy" type="ardrone_driver" name="ardrone" output="screen">
 		<param name="drone_frame_id" value="base"/>
@@ -19,14 +18,17 @@
 
 
 
-	 	<!-- Show the image -->
+ 		<!-- Show the image -->
 	<node name="image_view" pkg="image_view" type="image_view" respawn="false" output="screen" cwd="node">
 		<remap from="image" to="/ardrone/image_raw"/>
-    	</node>        
-	
-        
-       		<!-- Start the 3d Mouse for driving control -->
-    	<node name="teleop_3d" pkg="drone_teleop_3d" type="ardrone_3d_teleop" />          
+	</node>        
+
+
+    	<!-- Start the keyboard control -->
+	<node name="ardrone_teleop" pkg="drone_teleop" type="drone_teleop.py" /> 
+
+   		<!-- Start the 3d Mouse for driving control -->
+	<!--<node name="teleop_3d" pkg="drone_teleop_3d" type="ardrone_3d_teleop" />-->          
 
 
     
