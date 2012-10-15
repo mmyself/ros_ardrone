@@ -156,6 +156,9 @@ ARDrone_Odom::ARDrone_Odom()
     vely = 0;
     velz = 0;
 
+	max_velx = 0;
+    max_vely = 0;
+	
     accx = 0;
     accy = 0;
     accz = 0;
