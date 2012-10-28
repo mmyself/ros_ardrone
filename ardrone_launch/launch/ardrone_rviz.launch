@@ -9,7 +9,7 @@
 
 
 		<!-- send the robot XML to param server -->
-	<arg name="model" default="$(find jh_fly)/launch/drone.urdf"/>
+	<arg name="model" default="$(find ardrone_launch)/launch/drone.urdf"/>
 	<param name="robot_description" command="$(find xacro)/xacro.py '$(arg model)'" />
 
      
@@ -46,7 +46,7 @@
        
         
 		<!-- VISUALIZATION  with Rviz -->
-    	<node pkg="rviz" type="rviz" name="rviz" args="-d $(find jh_fly)/config/ardrone.vcg"/>
+    	<node pkg="rviz" type="rviz" name="rviz" args="-d $(find ardrone_launch)/config/ardrone.vcg"/>
 	
         
 	<!-- Start the keyboard control -->
