@@ -1,0 +1,18 @@
+<package>
+    <description brief="ardrone_odom_arpose">
+
+        Odometry + Arpose for the AR.Drone
+		Update the Pose of the Drone, by Odom and Arpose
+
+    </description>
+    <author>Jan Heuer</author>
+    <license>BSD</license>
+    <review status="unreviewed" notes=""/>
+    <depend package="ardrone_autonomy"/>
+    <depend package="std_msgs"/>
+    <depend package="geometry_msgs"/>
+    <depend package="nav_msgs"/>
+    <depend package="roscpp"/>
+	<depend package="ar_pose"/>
+
+</package>
