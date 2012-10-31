@@ -156,9 +156,11 @@ void ARDrone_Odom::updateArPose(const ardrone_autonomy::ARMarker::ConstPtr &msg)
         return;
     }
 
+    x = msg->pose.pose.position.x;
+    y = msg->pose.pose.position.y;
+    z = msg->pose.pose.position.z;
 
-
-
+    ROS_DEBUG (" Pos x: %3.5f  y: %3.5f  z: %3.5f", x, y, z);
 
     PubOdom();
 }
