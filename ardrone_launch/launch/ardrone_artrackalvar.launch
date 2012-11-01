@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<launch>
+	 
+
+		<!-- set a referenze tf_frame for the world -->	
+	<node pkg="tf" type="static_transform_publisher" name="worldmarker" 
+		args="2 0 1 -1.571 0 1.571 world base_link 10" />
+
+
+		<!-- send the robot XML to param server -->
+	<arg name="model" default="$(find ardrone_launch)/launch/drone.urdf"/>
+	<param name="robot_description" command="$(find xacro)/xacro.py '$(arg model)'" />
+
+     
+   		<!-- start robot state publisher -->
+	<node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher" output="screen" >
+		<param name="publish_frequency" type="double" value="50.0" />
+		<param name="tf_prefix" type="string" value="" />
+	</node>
+
+
+
+		<!-- Start the ARDrone driver-->
+	<node pkg="ardrone_autonomy" type="ardrone_driver" name="ardrone" output="screen">
+		<param name="drone_frame_id" value="base"/>
+		<param name="outdoor" value="0"/>
+		<param name="flight_without_shell" value="0"/>
+		<param name="altitude_max" value="3000"/>
+		<param name="detect_type" value="CAD_TYPE_MULTIPLE_DETECTION_MODE"/>
+		<param name="enemy_colors" value="ARDRONE_DETECTION_COLOR_ORANGE_BLUE"/>
+		<param name="enemy_without_shell" value="0"/>
+		<param name="detections_select_h" value="TAG_TYPE_MASK(TAG_TYPE_SHELL_TAG_V2)"/>
+		<param name="detections_select_v_hsync" value="TAG_TYPE_MASK(TAG_TYPE_BLACK_ROUNDEL)"/>
+	</node>
+
+
+		<!-- ArTrackAlvar -->
+	<!--<arg name="marker_size" default="5.0" />
+	<arg name="max_new_marker_error" default="0.08" />
+	<arg name="max_track_error" default="0.2" />
+
+	<arg name="cam_image_topic" default="/ardrone/image_raw" />
+	<arg name="cam_info_topic" default="/ardrone/camera_info" />		
+	<arg name="output_frame" default="/base_link" />
+
+	<node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkersNoKinect" respawn="false" output="screen" args="$(arg marker_size) $(arg max_new_marker_error) $(arg max_track_error) $(arg cam_image_topic) $(arg cam_info_topic) $(arg output_frame)" />
+	-->
+
+		<!-- VISUALIZATION  with Rviz -->
+	<node pkg="rviz" type="rviz" name="rviz" />
+	
+        
+		<!-- Start the 3d Mouse for driving control -->
+	<node name="teleop_3d" pkg="drone_teleop_3d" type="ardrone_3d_teleop" />          
+
+</launch>

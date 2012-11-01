@@ -55,6 +55,7 @@ private:
     double velx,vely,velz;
     double accx,accy,accz;
     double magx,magy,magz;
+	double x,y,z;
 
     double alt;
     double time;

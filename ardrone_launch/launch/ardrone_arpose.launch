@@ -9,7 +9,7 @@
 
 
 		<!-- send the robot XML to param server -->
-	<arg name="model" default="$(find jh_fly)/launch/drone.urdf"/>
+	<arg name="model" default="$(find ardrone_launch)/launch/drone.urdf"/>
 	<param name="robot_description" command="$(find xacro)/xacro.py '$(arg model)'" />
 
      
@@ -51,11 +51,23 @@
 
 	</node>
 
+	         <!-- translate the messages from the dronedriver to odometry -->
+    <node pkg="ardrone_odom_arpose" type="ardrone_odom_arpose" name="ardrone_odom_arpose" output="screen"></node>
+
+            <!-- translate the messages from odometry to tf-->
+    <node pkg="odom_to_world" type="odom_to_tf" name="ardrone_odom_to_tf" output="screen">
+        <remap from="/odom" to="/vo" />
+    </node>
+
+
 		<!-- VISUALIZATION  with Rviz -->
-	<node pkg="rviz" type="rviz" name="rviz" args="-d $(find jh_fly)/config/arpose_single.vcg"/>
+	<node pkg="rviz" type="rviz" name="rviz" args="-d $(find ardrone_launch)/config/arpose_single.vcg"/>
 	
+
+	<!-- Start the keyboard control -->
+    <node name="ardrone_teleop" pkg="drone_teleop" type="drone_teleop.py" />
         
 		<!-- Start the 3d Mouse for driving control -->
-	<node name="teleop_3d" pkg="drone_teleop_3d" type="ardrone_3d_teleop" />          
+	<!--<node name="teleop_3d" pkg="drone_teleop_3d" type="ardrone_3d_teleop" />-->          
 
 </launch>
