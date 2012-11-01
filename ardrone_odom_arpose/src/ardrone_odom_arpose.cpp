@@ -152,15 +152,20 @@ void ARDrone_Odom::updateOdom(const ardrone_autonomy::Navdata::ConstPtr &msg)
 void ARDrone_Odom::updateArPose(const ar_pose::ARMarker::ConstPtr &msg)
 {
     /*if (msg->tm < time) // drop the message, it's out of date.
-        return;                        
+        return;
     if (time == 0) {
         time = msg->tm;
         return;
     }*/
 
 
+    x = msg->pose.pose.position.x;
+    y = msg->pose.pose.position.y;
+    z = msg->pose.pose.position.z;
 
+    ROS_DEBUG (" Pos x: %3.5f  y: %3.5f  z: %3.5f", x, y, z);
 
+    linx = 2.0 - msg->pose.pose.position.z;
 
     PubOdom();
 }
