@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+
+<launch>
+
+
+		<!-- set a referenze tf_frame for the world -->
+	<node pkg="tf" type="static_transform_publisher" name="worldmarker"
+		args="0 0 0 0 0 0 world world_marker 10" />
+
+
+		<!-- send the robot XML to param server -->
+	<arg name="model" default="$(find ardrone_launch)/launch/drone.urdf"/>
+	<param name="robot_description" command="$(find xacro)/xacro.py '$(arg model)'" />
+
+
+   		<!-- start robot state publisher -->
+	<node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher" output="screen" >
+		<param name="publish_frequency" type="double" value="50.0" />
+		<param name="tf_prefix" type="string" value="" />
+	</node>
+
+
+
+		<!-- Start the ARDrone driver-->
+	<node pkg="ardrone_autonomy" type="ardrone_driver" name="ardrone" output="screen">
+		<param name="drone_frame_id" value="base"/>
+		<param name="outdoor" value="0"/>
+		<param name="flight_without_shell" value="0"/>
+		<param name="altitude_max" value="3000"/>
+		<param name="detect_type" value="CAD_TYPE_MULTIPLE_DETECTION_MODE"/>
+		<param name="enemy_colors" value="ARDRONE_DETECTION_COLOR_ORANGE_BLUE"/>
+		<param name="enemy_without_shell" value="0"/>
+		<param name="detections_select_h" value="TAG_TYPE_MASK(TAG_TYPE_SHELL_TAG_V2)"/>
+		<param name="detections_select_v_hsync" value="TAG_TYPE_MASK(TAG_TYPE_BLACK_ROUNDEL)"/>
+	</node>
+
+
+	<node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
+	    <param name="output_frame" value="odom"/>
+	    <param name="freq" value="30.0"/>
+	    <param name="sensor_timeout" value="1.0"/>
+	    <param name="odom_used" value="false"/>
+	    <param name="imu_used" value="true"/>
+	    <param name="vo_used" value="true"/>
+	    <param name="debug" value="false"/>
+	    <param name="self_diagnose" value="false"/>
+	</node>
+
+	        <!-- translate the messages from the dronedriver to odometry, with robot_pose_ekf -->
+	<node pkg="ardrone_imu" type="ardrone_imu" name="ardrone_imu" output="screen"></node>
+
+			<!-- translate the messages from odometry to tf-->
+	<node pkg="odom_to_world" type="odom_to_tf" name="ardrone_odom_to_tf" output="screen">
+		<remap from="/odom" to="/vo" />
+	</node>
+
+
+		<!-- VISUALIZATION  with Rviz -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find ardrone_launch)/config/ardrone.vcg"/>
+
+
+	<!-- Start the keyboard control -->
+	<node name="ardrone_teleop" pkg="drone_teleop" type="drone_teleop.py" />
+
+   		<!-- Start the 3d Mouse for driving control -->
+	<!--<node name="teleop_3d" pkg="drone_teleop_3d" type="ardrone_3d_teleop" />-->
+
+</launch>

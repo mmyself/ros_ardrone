@@ -1,0 +1,16 @@
+<package>
+    <description brief="ardrone_imu">
+
+        Inertial Measurement Unit for the AR.Drone
+
+    </description>
+    <author>Rachel Brindle</author>
+    <license>BSD</license>
+    <review status="unreviewed" notes=""/>
+    <url>http://rachelbrindle.com/ardrone/imu/</url>
+    <depend package="ardrone_autonomy"/>
+    <depend package="std_msgs"/>
+    <depend package="geometry_msgs"/>
+    <depend package="roscpp"/>
+
+</package>
