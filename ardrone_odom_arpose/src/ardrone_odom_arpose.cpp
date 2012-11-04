@@ -167,6 +167,8 @@ void ARDrone_Odom::updateArPose(const ar_pose::ARMarker::ConstPtr &msg)
     ROS_DEBUG (" Pos x: %3.5f  y: %3.5f  z: %3.5f", x, y, z);
 
     linx = 2.0 - msg->pose.pose.position.z;
+	liny = msg->pose.pose.position.x;
+	linz = 1.0 + msg->pose.pose.position.y;
 
     PubOdom();
 }

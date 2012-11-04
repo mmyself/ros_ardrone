@@ -37,7 +37,7 @@
 #include "spnav.h"
 #include "geometry_msgs/Vector3.h"
 #include "geometry_msgs/Twist.h"
-#include "joy/Joy.h"
+#include "sensor_msgs/Joy.h"
 
 #include "std_msgs/Empty.h"
 
@@ -65,7 +65,7 @@ int main(int argc, char **argv)
     return 1;
   }
 
-  joy::Joy joystick_msg;
+  sensor_msgs::Joy joystick_msg;
   joystick_msg.axes.resize(6);
   joystick_msg.buttons.resize(2);
   

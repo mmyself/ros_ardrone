@@ -54,6 +54,7 @@ private:
     double velx,vely,velz;
     double accx,accy,accz;
     double magx,magy,magz;
+	double max_velx,max_vely;
 
     double alt;
     double time;

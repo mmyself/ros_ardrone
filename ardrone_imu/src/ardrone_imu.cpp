@@ -227,7 +227,7 @@ ARDrone_Imu::ARDrone_Imu()
     time = 0;
 
     sub = n.subscribe("ardrone/navdata", 1, &ARDrone_Imu::runloop, this);
-    ekf = n.subscribe("robot_pose_ekf/odom_combined", 1, &ARDrone_Imu::odom, this);
+    ekf = n.subscribe("robot_pose_ekf/odom", 1, &ARDrone_Imu::odom, this);
     fprintf(stderr, "subscribed to ardrone/navdata\n");
     imu_pub = n.advertise<sensor_msgs::Imu>("imu_data", 10);
     vo_pub = n.advertise<nav_msgs::Odometry>("vo", 10);

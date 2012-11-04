@@ -45,6 +45,7 @@
 		<param name="threshold" type="int" value="100"/>
 		<param name="use_history" type="bool" value="true"/>
 		<param name="reverse_transform" type="bool" value="true"/>
+		<param name="publish_tf" type="bool" value="false"/>
 
 		<remap from="/usb_cam/camera_info" to="/ardrone/camera_info" />		
 		<remap from="/usb_cam/image_raw" to="/ardrone/image_raw" />
@@ -68,6 +69,6 @@
     <node name="ardrone_teleop" pkg="drone_teleop" type="drone_teleop.py" />
         
 		<!-- Start the 3d Mouse for driving control -->
-	<!--<node name="teleop_3d" pkg="drone_teleop_3d" type="ardrone_3d_teleop" />-->          
+	<!--<node name="teleop_3d" pkg="drone_teleop_3d" type="ardrone_3d_teleop" />          -->
 
 </launch>
