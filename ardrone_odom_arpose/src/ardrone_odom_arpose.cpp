@@ -55,6 +55,7 @@ private:
     double velx,vely,velz;
     double accx,accy,accz;
     double magx,magy,magz;
+    double rotx,roty,rotz;
 	double x,y,z;
 
     double alt;
@@ -85,9 +86,9 @@ void ARDrone_Odom::PubOdom()
     om.pose.pose.position.x = linx;
     om.pose.pose.position.y = liny;
     om.pose.pose.position.z = linz;
-    om.pose.pose.orientation = eulerToQuaternion(degreeToRadian(magx),
-                                                 degreeToRadian(magy),
-                                                 degreeToRadian(magz));
+    om.pose.pose.orientation = eulerToQuaternion(degreeToRadian(rotx),
+                                                 degreeToRadian(roty),
+                                                 degreeToRadian(rotz));
     double c = degreeToRadian(6.0); // mag covarience..
 
     double x,y,z;
@@ -132,9 +133,9 @@ void ARDrone_Odom::updateOdom(const ardrone_autonomy::Navdata::ConstPtr &msg)
     accy = msg->ay * gravity;
     accz = msg->az * gravity;
 
-    magx = 0; //msg->magX;
-    magy = 0; //msg->magY;
-    magz = 0; //msg->magZ;
+    rotx = msg->rotX;
+    roty = msg->rotY;
+    rotz = msg->rotZ;
 
     if (msg->state >= 3 && msg->state != 5) {
         //linx += ((velx * dt) + (0.5 * ts * accx));
