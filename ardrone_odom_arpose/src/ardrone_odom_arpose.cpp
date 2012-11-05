@@ -133,9 +133,9 @@ void ARDrone_Odom::updateOdom(const ardrone_autonomy::Navdata::ConstPtr &msg)
     accy = msg->ay * gravity;
     accz = msg->az * gravity;
 
-    rotx = msg->rotX;
-    roty = msg->rotY;
-    rotz = msg->rotZ;
+    rotx = msg->rotY;
+    roty = msg->rotZ;
+    rotz = msg->rotX;
 
     if (msg->state >= 3 && msg->state != 5) {
         //linx += ((velx * dt) + (0.5 * ts * accx));
