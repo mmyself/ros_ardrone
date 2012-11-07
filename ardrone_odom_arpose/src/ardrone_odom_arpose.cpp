@@ -151,7 +151,7 @@ void ARDrone_Odom::updateOdom(const ardrone_autonomy::Navdata::ConstPtr &msg)
 
     if(msg->tags_count > 0){
 
-        ROS_DEBUG (" Estimated Distance: %3.5f ", msg->tags_distance[0]);
+        ROS_INFO (" Estimated Distance: %3.5f ", msg->tags_distance[0]);
 
     }
 
