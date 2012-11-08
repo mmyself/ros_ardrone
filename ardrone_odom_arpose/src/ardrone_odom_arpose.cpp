@@ -149,10 +149,22 @@ void ARDrone_Odom::updateOdom(const ardrone_autonomy::Navdata::ConstPtr &msg)
         accz = gravity;
     }
 
+    // if the bottom camera find a tag
     if(msg->tags_count > 0){
 
-        ROS_INFO (" Estimated Distance: %3.5f ", msg->tags_distance[0]);
+        // if the bottom camera check the oriented roundel
+        //if(msg->tags_type[0] == ''){
+            // 640 * 360 tags_xc[], tags_yc[], tags_orientation[]
+            ROS_INFO (" tags_xc[]: %3.5f  tags_yc[]: %3.5f  tags_orientation[]: %3.5f", msg->tags_xc[0], msg->tags_yc[0], msg->tags_orientation[0]);
+            ROS_INFO (" tags_type[]: %3.5f", msg->tags_type[0]);
 
+            // must be made better, but should works at first
+            linx = 0;
+            liny = 0;
+
+            // think here we need a gaussian addition
+            linz = (linz + (msg->tags_distance[0] / 100)) / 2;
+        //}
     }
 
 
@@ -161,23 +173,17 @@ void ARDrone_Odom::updateOdom(const ardrone_autonomy::Navdata::ConstPtr &msg)
 
 void ARDrone_Odom::updateArPose(const ar_pose::ARMarker::ConstPtr &msg)
 {
-    /*if (msg->tm < time) // drop the message, it's out of date.
-        return;
-    if (time == 0) {
-        time = msg->tm;
-        return;
-    }*/
-
 
     x = msg->pose.pose.position.x;
     y = msg->pose.pose.position.y;
     z = msg->pose.pose.position.z;
 
-    ROS_DEBUG (" Pos x: %3.5f  y: %3.5f  z: %3.5f", x, y, z);
+    ROS_INFO ("Ar_pose Pos x: %3.5f  y: %3.5f  z: %3.5f", x, y, z);
 
-    linx = 2.0 - msg->pose.pose.position.z;
+    // the magic number comes from the ar_pose marker in the launch file, and the 0.2 from the front_cam to base_link distance
+    linx = 2.0 + 0.2 - msg->pose.pose.position.z;
 	liny = msg->pose.pose.position.x;
-	linz = 1.0 + msg->pose.pose.position.y;
+	linz = (linz + 1.0 + msg->pose.pose.position.y) / 2;
 
     PubOdom();
 }
