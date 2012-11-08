@@ -1,4 +1,11 @@
 <launch>
+
+    <param name="use_sim_time" value="true"/>
+
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find ar_pose)/launch/live_reverse.vcg"/>
+
+   <node pkg="tf" type="static_transform_publisher" name="world_to_marker" args="2 0 1 -1.571 0 1.571 world ar_marker 10" />
+
        <!-- ArdronePose -->
     <node name="ar_pose" pkg="ar_pose" type="ar_single" respawn="false" output="screen">
 
