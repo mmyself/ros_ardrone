@@ -54,6 +54,7 @@ private:
     double velx,vely,velz;
     double accx,accy,accz;
     double magx,magy,magz;
+    double rotx,roty,rotz;
 	double max_velx,max_vely;
 
     double alt;
@@ -116,7 +117,7 @@ void ARDrone_Odom::runloop(const ardrone_autonomy::Navdata::ConstPtr &msg)
     dt = (msg->tm - time) / 1000000; // to seconds...
     double ts = dt * dt;
     time = msg->tm;
-    
+
     alt = (double)msg->altd / 1000; // mm to m
 
     velx = msg->vx / 1000;
@@ -134,10 +135,10 @@ void ARDrone_Odom::runloop(const ardrone_autonomy::Navdata::ConstPtr &msg)
     magz = 0; //msg->magZ;
 
     if (msg->state >= 3 && msg->state != 5) {
-        //linx += ((velx * dt) + (0.5 * ts * accx));
-        //liny += ((vely * dt) + (0.5 * ts * accy));
-		linx += velx * dt;
-        liny += vely * dt;
+        linx += ((velx * dt) + (0.5 * ts * accx));
+        liny += ((vely * dt) + (0.5 * ts * accy));
+		//linx += velx * dt;
+        //liny += vely * dt;
         linz = alt;
     } else if (msg->state != 0) { // not flying.
         accx = 0;
@@ -159,7 +160,7 @@ ARDrone_Odom::ARDrone_Odom()
 
 	max_velx = 0;
     max_vely = 0;
-	
+
     accx = 0;
     accy = 0;
     accz = 0;
