@@ -11,6 +11,8 @@
 	<depend package="roscpp"/>
     <depend package="tf"/>
 	<depend package="nav_msgs"/>
+	<depend package="geometry_msgs"/>
+
 
 </package>
 
