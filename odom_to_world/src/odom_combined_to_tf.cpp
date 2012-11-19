@@ -1,6 +1,8 @@
 #include <string>
 #include <ros/ros.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
+#include <geometry_msgs/Vector3.h>
+#include <geometry_msgs/PoseWithCovarianceStamped.h>
 #include <tf/transform_broadcaster.h>
 
 tf::TransformBroadcaster *broadcaster;
@@ -27,10 +29,10 @@ void odomCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &odom
     odom_trans.transform.rotation = tf::createQuaternionMsgFromYaw(angle+M_PI/2);*/
 
 
-	odom_trans.transform.translation.x = odometry.pose.pose.position.x;
-    odom_trans.transform.translation.y = odometry.pose.pose.position.y;
-    odom_trans.transform.translation.z = odometry.pose.pose.position.z;
-    odom_trans.transform.rotation = odometry.pose.pose.orientation;
+	odom_trans.transform.translation.x = odometry->pose.pose.position.x;
+    odom_trans.transform.translation.y = odometry->pose.pose.position.y;
+    odom_trans.transform.translation.z = odometry->pose.pose.position.z;
+    odom_trans.transform.rotation = odometry->pose.pose.orientation;
 
 
 

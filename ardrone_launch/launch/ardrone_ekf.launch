@@ -4,9 +4,8 @@
 
 
 		<!-- set a referenze tf_frame for the world -->
-	<node pkg="tf" type="static_transform_publisher" name="worldmarker"
-		args="0 0 0 0 0 0 world world_marker 10" />
-
+	<node pkg="tf" type="static_transform_publisher" name="worldmarker" 
+                args="2 0 1 -1.571 0 1.571 world ar_marker 10" />
 
 		<!-- send the robot XML to param server -->
 	<arg name="model" default="$(find ardrone_launch)/launch/drone.urdf"/>
@@ -22,7 +21,7 @@
 
 
 		<!-- Start the ARDrone driver-->
-	<node pkg="ardrone_autonomy" type="ardrone_driver" name="ardrone" output="screen">
+	<!--<node pkg="ardrone_autonomy" type="ardrone_driver" name="ardrone" output="screen">
 		<param name="drone_frame_id" value="base"/>
 		<param name="outdoor" value="0"/>
 		<param name="flight_without_shell" value="0"/>
@@ -32,11 +31,11 @@
 		<param name="enemy_without_shell" value="0"/>
 		<param name="detections_select_h" value="TAG_TYPE_MASK(TAG_TYPE_SHELL_TAG_V2)"/>
 		<param name="detections_select_v_hsync" value="TAG_TYPE_MASK(TAG_TYPE_BLACK_ROUNDEL)"/>
-	</node>
+	</node>-->
 
 
 	<node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
-	    <param name="output_frame" value="odom"/>
+	    <param name="output_frame" value="odom_combined"/>
 	    <param name="freq" value="30.0"/>
 	    <param name="sensor_timeout" value="1.0"/>
 	    <param name="odom_used" value="false"/>
@@ -47,10 +46,10 @@
 	</node>
 
 	        <!-- translate the messages from the dronedriver to odometry, with robot_pose_ekf -->
-	<node pkg="ardrone_imu" type="ardrone_imu" name="ardrone_imu" output="screen"></node>
+	<!--<node pkg="ardrone_imu" type="ardrone_imu" name="ardrone_imu" output="screen"></node>-->
 
 			<!-- translate the messages from odometry to tf-->
-	<node pkg="odom_to_world" type="odom_to_tf" name="ardrone_odom_to_tf" output="screen">
+	<node pkg="odom_to_world" type="odom_combined_to_tf" name="ardrone_odom_to_tf" output="screen">
 		<remap from="/odom" to="/vo" />
 	</node>
 
