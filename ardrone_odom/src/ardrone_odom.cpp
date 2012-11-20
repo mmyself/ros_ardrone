@@ -52,6 +52,7 @@ class ARDrone_Odom {
 private:
     double linx,liny,linz;
     double velx,vely,velz;
+	double velx_old,vely_old,velz_old;
     double accx,accy,accz;
     double magx,magy,magz;
     double rotx,roty,rotz;
@@ -111,6 +112,8 @@ void ARDrone_Odom::runloop(const ardrone_autonomy::Navdata::ConstPtr &msg)
         return;
     if (time == 0) {
         time = msg->tm;
+		velx_old = msg->vx / 1000;
+		vely_old = msg->vy / 1000;
         return;
     }
     rtime = ros::Time::now();
@@ -135,8 +138,10 @@ void ARDrone_Odom::runloop(const ardrone_autonomy::Navdata::ConstPtr &msg)
     magz = 0; //msg->magZ;
 
     if (msg->state >= 3 && msg->state != 5) {
-        linx += ((velx * dt) + (0.5 * ts * accx));
-        liny += ((vely * dt) + (0.5 * ts * accy));
+       	//linx += ((velx * dt) + (0.5 * ts * accx));
+        //liny += ((vely * dt) + (0.5 * ts * accy));
+		linx += (velx + velx_old) / 2 * dt;
+        liny += (vely + vely_old) / 2 * dt;
 		//linx += velx * dt;
         //liny += vely * dt;
         linz = alt;
@@ -145,6 +150,10 @@ void ARDrone_Odom::runloop(const ardrone_autonomy::Navdata::ConstPtr &msg)
         accy = 0;
         accz = gravity;
     }
+	
+	velx_old = velx;
+	vely_old = vely;
+	
     PubOdom();
 }
 
@@ -157,6 +166,10 @@ ARDrone_Odom::ARDrone_Odom()
     velx = 0;
     vely = 0;
     velz = 0;
+	
+	velx_old = 0;
+    vely_old = 0;
+    velz_old = 0;
 
 	max_velx = 0;
     max_vely = 0;

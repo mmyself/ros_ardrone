@@ -33,6 +33,10 @@
 		<param name="detections_select_v_hsync" value="TAG_TYPE_MASK(TAG_TYPE_BLACK_ROUNDEL)"/>
 	</node>-->
 
+	
+	<!-- translate the messages from the dronedriver to odometry -->
+    <node pkg="ardrone_odom_arpose" type="ardrone_odom_arpose" name="ardrone_odom_arpose" output="screen"></node>
+
 
 	<node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
 	    <param name="output_frame" value="odom_combined"/>
@@ -47,10 +51,10 @@
 
 	        <!-- translate the messages from the dronedriver to odometry, with robot_pose_ekf -->
 	<!--<node pkg="ardrone_imu" type="ardrone_imu" name="ardrone_imu" output="screen"></node>-->
+	
 
-			<!-- translate the messages from odometry to tf-->
+			<!-- translate the messages from robot_pose_ekf odometry to tf-->
 	<node pkg="odom_to_world" type="odom_combined_to_tf" name="ardrone_odom_to_tf" output="screen">
-		<remap from="/odom" to="/vo" />
 	</node>
 
 
