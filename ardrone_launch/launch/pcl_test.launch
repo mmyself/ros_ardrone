@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<launch>
+	 
+
+		<!-- set a referenze tf_frame for the world -->	
+	<node pkg="tf" type="static_transform_publisher" name="worldmarker" 
+		args="0 0 0 0 0 0 world world_marker 10" />
+
+	<node name="transform_cloud_nodelet"  pkg="odom_to_world" type="transform_cloud_nodelet">
+	    <param  name= "pointcloud_to_transform" value="/points2" /> 
+	    <param  name= "frame_id"            value="/pcl_tf" /> 
+	    <param  name= "pointcloud_transformed"   value="/points2_tf" />
+	</node>
+
+</launch>
