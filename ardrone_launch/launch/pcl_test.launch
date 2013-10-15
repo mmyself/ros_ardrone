@@ -8,7 +8,13 @@
 		args="0 0 0 0 0 0 world world_marker 10" />
 
 		<!-- Start the 3d Mouse for driving control -->
-	<!--<node name="pcl" pkg="odom_to_world" type="pcl_test" />-->             
+	<!--<node name="pcl" pkg="odom_to_world" type="pcl_test" />-->
+
+	<node name="transform_cloud_nodelet" pkg="odom_to_world" type="transform_cloud_nodelet">
+            <param  name= "pointcloud_to_transform" value="/points2" />
+            <param  name= "frame_id" value="/pcl_tf" />
+            <param  name= "pointcloud_transformed" value="/points2_tf" />
+        </node>             
         
 		<!-- translate the messages from odometry to tf-->
 	<node name="pcl_tf" pkg="odom_to_world" type="pcl_test_to_tf" />
