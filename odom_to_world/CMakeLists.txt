@@ -30,3 +30,5 @@ rosbuild_add_executable(odom_to_tf src/odom_to_tf.cpp)
 #target_link_libraries(example ${PROJECT_NAME})
 rosbuild_add_executable(odom_combined_to_tf src/odom_combined_to_tf.cpp)
 rosbuild_add_executable(pcl_test src/pcl_test.cpp)
+rosbuild_add_executable(pcl_test_to_tf src/pcl_test_to_tf.cpp)
+

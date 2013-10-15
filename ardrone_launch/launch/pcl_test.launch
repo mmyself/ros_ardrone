@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<launch>
+	 
+
+		<!-- set a referenze tf_frame for the world -->	
+	<node pkg="tf" type="static_transform_publisher" name="worldmarker" 
+		args="0 0 0 0 0 0 world world_marker 10" />
+
+		<!-- Start the 3d Mouse for driving control -->
+	<!--<node name="pcl" pkg="odom_to_world" type="pcl_test" />-->             
+        
+		<!-- translate the messages from odometry to tf-->
+	<node name="pcl_tf" pkg="odom_to_world" type="pcl_test_to_tf" />
+       
+        
+		<!-- VISUALIZATION  with Rviz -->
+    <!--<node pkg="rviz" type="rviz" name="rviz" args="-d $(find ardrone_launch)/config/ardrone.vcg"/>-->
+	
+
+</launch>

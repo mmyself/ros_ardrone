@@ -22,7 +22,7 @@
 
 
 		<!-- Start the ARDrone driver-->
-	<node pkg="ardrone_autonomy" type="ardrone_driver" name="ardrone" output="screen">
+	<!--<node pkg="ardrone_autonomy" type="ardrone_driver" name="ardrone" output="screen">
 		<param name="drone_frame_id" value="base"/>
 		<param name="outdoor" value="0"/>
 		<param name="flight_without_shell" value="0"/>
@@ -32,7 +32,7 @@
 		<param name="enemy_without_shell" value="0"/>
 		<param name="detections_select_h" value="TAG_TYPE_MASK(TAG_TYPE_SHELL_TAG_V2)"/>
 		<param name="detections_select_v_hsync" value="TAG_TYPE_MASK(TAG_TYPE_BLACK_ROUNDEL)"/>
-	</node>
+	</node>-->
 
 
 
@@ -50,9 +50,9 @@
 	
         
 	<!-- Start the keyboard control -->
-	<node name="ardrone_teleop" pkg="drone_teleop" type="drone_teleop.py" /> 
+	<!--<node name="ardrone_teleop" pkg="drone_teleop" type="drone_teleop.py" /> -->
 
    		<!-- Start the 3d Mouse for driving control -->
-	<!--<node name="teleop_3d" pkg="drone_teleop_3d" type="ardrone_3d_teleop" />-->             
+	<node name="teleop_3d" pkg="drone_teleop_3d" type="drone_teleop_3d" />             
 
 </launch>

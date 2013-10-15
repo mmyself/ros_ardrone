@@ -12,7 +12,7 @@ int main(int argc, char** argv)
   ros::Publisher pub = nh.advertise<PointCloud> ("points2", 1);
 
   PointCloud::Ptr msg (new PointCloud);
-  msg->header.frame_id = "pcl";
+  msg->header.frame_id = "/pcl";
   msg->height = 1;
   msg->width = 2;
   msg->points.push_back (pcl::PointXYZ(1.0, 2.0, 3.0));
