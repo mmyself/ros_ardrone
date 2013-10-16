@@ -24,8 +24,8 @@ void topic_callback(const sensor_msgs::PointCloud2ConstPtr& msg)
   ROS_INFO("Message received n= %d",counter);
   
   // Pcl clouds
-  pcl::PointCloud<pcl::PointXYZRGB> cloud_in;
-  pcl::PointCloud<pcl::PointXYZRGB> cloud_trans;
+  pcl::PointCloud<pcl::PointXYZ> cloud_in;
+  pcl::PointCloud<pcl::PointXYZ> cloud_trans;
   
   //STEP 0 Convert sensor_msgs to pcl
   pcl::fromROSMsg(*msg,cloud_in);
@@ -61,14 +61,14 @@ int main(int argc, char **argv)
   listener_tf_ptr=&listener_tf;
   
   // Getting point cloud from launch file
-  string pointcloud_subscribed;
-  if (!n.hasParam("pointcloud_to_transform"))
+  /*string pointcloud_subscribed;
+  if (!n.hasParam("ptf"))
   {
     ROS_ERROR("Must set properly a input pointcloud");
     return -1;
   }
   else
-  n.getParam("pointcloud_to_transform", pointcloud_subscribed);
+  n.getParam("ptf", pointcloud_subscribed);
   
   // Getting reference frame to transform
   if (!n.hasParam("frame_id"))
@@ -87,10 +87,11 @@ int main(int argc, char **argv)
     return -1;
   }
   else
-  n.getParam("pointcloud_transformed", pointcloud_transformed);
+  n.getParam("pointcloud_transformed", pointcloud_transformed);*/
 
-  ros::Subscriber sub = n.subscribe(pointcloud_subscribed, 1, topic_callback);
-  pub=n.advertise<sensor_msgs::PointCloud2>(pointcloud_transformed,1000);
+  frame_id="/pcl";
+  ros::Subscriber sub = n.subscribe("/points2", 1, topic_callback);
+  pub=n.advertise<sensor_msgs::PointCloud2>("/points_tf",1000);
   
   ros::spin();
   return 1;
